@@ -432,9 +432,13 @@
   .cal-day {
     text-align: center;
     font-size: 13px;
-    padding: 5px 2px;
+    height: 32px;
+    padding: 0 2px;
     color: var(--text-dark);
     border-radius: 2px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
   .cal-day.empty { background: transparent; }
@@ -465,7 +469,8 @@
     background: var(--crimson);
     border-radius: 50%;
     color: white;
-    font-size: 14px;
+    font-size: 12px;
+    font-weight: 700;
     margin: auto;
   }
 
@@ -1006,10 +1011,10 @@
   </div>
 
   <!-- THONG TIN TIEC CUOI -->
-  <div class="section-header">Thông Tin Tiệc Cưới</div>
+  <div class="section-header">Thông Tin Tiệc Mừng Lễ Thành Hôn</div>
 
   <div class="party-section">
-    <div class="time-announce">Tiệc cưới sẽ diễn ra vào lúc:</div>
+    <div class="time-announce">Tiệc mừng lễ thành hôn sẽ diễn ra vào lúc:</div>
     <div class="time-main">17h00</div>
 
     <div class="date-row">
@@ -1030,24 +1035,81 @@
     </div>
   </div>
 
-  <!-- COUNTDOWN -->
   <div class="countdown-section">
-    <div class="countdown-label">Cùng Đếm Ngược</div>
+    <div class="countdown-label">Đếm ngược đến tiệc mừng</div>
+    <div class="countdown-timer">
+      <div class="countdown-unit"><span class="countdown-number" id="party-cd-days">--</span><span class="countdown-unit-label">Ngày</span></div>
+      <div class="countdown-unit"><span class="countdown-number" id="party-cd-hours">--</span><span class="countdown-unit-label">Giờ</span></div>
+      <div class="countdown-unit"><span class="countdown-number" id="party-cd-mins">--</span><span class="countdown-unit-label">Phút</span></div>
+      <div class="countdown-unit"><span class="countdown-number" id="party-cd-secs">--</span><span class="countdown-unit-label">Giây</span></div>
+    </div>
+  </div>
+
+  <div class="calendar-section">
+    <div class="cal-header">Tháng 11/2026</div>
+    <div class="calendar-grid">
+      <div class="cal-day-name">T2</div><div class="cal-day-name">T3</div><div class="cal-day-name">T4</div>
+      <div class="cal-day-name">T5</div><div class="cal-day-name">T6</div><div class="cal-day-name">T7</div><div class="cal-day-name">CN</div>
+      <div class="cal-day empty"></div><div class="cal-day empty"></div><div class="cal-day empty"></div><div class="cal-day empty"></div>
+      <div class="cal-day empty"></div><div class="cal-day empty"></div><div class="cal-day">1</div>
+      <div class="cal-day">2</div><div class="cal-day">3</div><div class="cal-day">4</div><div class="cal-day">5</div>
+      <div class="cal-day">6</div><div class="cal-day">7</div><div class="cal-day">8</div>
+      <div class="cal-day">9</div><div class="cal-day">10</div><div class="cal-day">11</div><div class="cal-day">12</div>
+      <div class="cal-day"><div class="wedding-heart">13</div></div><div class="cal-day">14</div><div class="cal-day">15</div>
+      <div class="cal-day">16</div><div class="cal-day">17</div><div class="cal-day">18</div><div class="cal-day">19</div>
+      <div class="cal-day">20</div><div class="cal-day">21</div><div class="cal-day">22</div>
+      <div class="cal-day">23</div><div class="cal-day">24</div><div class="cal-day">25</div><div class="cal-day">26</div>
+      <div class="cal-day">27</div><div class="cal-day">28</div><div class="cal-day">29</div>
+      <div class="cal-day">30</div><div class="cal-day empty"></div><div class="cal-day empty"></div><div class="cal-day empty"></div>
+      <div class="cal-day empty"></div><div class="cal-day empty"></div><div class="cal-day empty"></div>
+    </div>
+  </div>
+
+  <!-- THONG TIN LE THANH HON -->
+  <div class="section-header">Thông Tin Lễ Thành Hôn</div>
+
+  <div class="party-section ceremony-section">
+    <div class="time-announce">Lễ thành hôn sẽ diễn ra vào lúc:</div>
+    <div class="time-main">10h30</div>
+
+    <div class="date-row">
+      <div class="date-label">Thứ Bảy</div>
+      <div class="date-separator"></div>
+      <div class="date-day">14</div>
+      <div class="date-separator"></div>
+      <div class="date-month-label">Tháng 11</div>
+    </div>
+
+    <div class="date-year">2026</div>
+    <div class="lunar-date">(Tức ngày 06 tháng 10 năm Bính Ngọ)</div>
+
+    <div class="venue-info">
+      <div class="venue-label">Địa điểm tổ chức</div>
+      <div class="venue-name">Tổ hợp dịch vụ cưới và Sự kiện W.Jardin</div>
+      <div class="venue-hall">Cổng 2, sảnh Forêt</div>
+      <div class="venue-address">307 Nguyễn Văn Linh, Lê Chân, Hải Phòng</div>
+    </div>
+
+  </div>
+
+  <!-- COUNTDOWN LE THANH HON -->
+  <div class="countdown-section">
+    <div class="countdown-label">Đếm ngược đến lễ thành hôn</div>
     <div class="countdown-timer">
       <div class="countdown-unit">
-        <span class="countdown-number" id="cd-days">--</span>
+        <span class="countdown-number" id="ceremony-cd-days">--</span>
         <span class="countdown-unit-label">Ngày</span>
       </div>
       <div class="countdown-unit">
-        <span class="countdown-number" id="cd-hours">--</span>
+        <span class="countdown-number" id="ceremony-cd-hours">--</span>
         <span class="countdown-unit-label">Giờ</span>
       </div>
       <div class="countdown-unit">
-        <span class="countdown-number" id="cd-mins">--</span>
+        <span class="countdown-number" id="ceremony-cd-mins">--</span>
         <span class="countdown-unit-label">Phút</span>
       </div>
       <div class="countdown-unit">
-        <span class="countdown-number" id="cd-secs">--</span>
+        <span class="countdown-number" id="ceremony-cd-secs">--</span>
         <span class="countdown-unit-label">Giây</span>
       </div>
     </div>
@@ -1071,7 +1133,7 @@
       <div class="cal-day">2</div><div class="cal-day">3</div><div class="cal-day">4</div><div class="cal-day">5</div>
       <div class="cal-day">6</div><div class="cal-day">7</div><div class="cal-day">8</div>
       <div class="cal-day">9</div><div class="cal-day">10</div><div class="cal-day">11</div><div class="cal-day">12</div>
-      <div class="cal-day"><div class="wedding-heart">❤️</div></div><div class="cal-day">14</div><div class="cal-day">15</div>
+      <div class="cal-day">13</div><div class="cal-day"><div class="wedding-heart">14</div></div><div class="cal-day">15</div>
       <div class="cal-day">16</div><div class="cal-day">17</div><div class="cal-day">18</div><div class="cal-day">19</div>
       <div class="cal-day">20</div><div class="cal-day">21</div><div class="cal-day">22</div>
       <div class="cal-day">23</div><div class="cal-day">24</div><div class="cal-day">25</div><div class="cal-day">26</div>
@@ -1083,8 +1145,7 @@
 
   <!-- FOOTER -->
   <div class="footer">
-    <div class="footer-greeting">Rất hân hạnh được đón tiếp</div>
-    <div class="footer-date">Tháng 11/2026</div>
+    <div class="footer-greeting">Sự hiện diện của Quý khách là niềm vinh hạnh của gia đình chúng tôi!</div>
   </div>
 
 </div>
@@ -1132,29 +1193,42 @@
 
 <script>
 // ===== COUNTDOWN =====
-const weddingDate = new Date('2026-11-13T17:00:00');
+const partyDate = new Date('2026-11-13T17:00:00');
+const ceremonyDate = new Date('2026-11-14T10:30:00');
 
-function updateCountdown() {
+function updateCountdown(targetDate, prefix) {
   const now = new Date();
-  const diff = weddingDate - now;
+  const diff = targetDate - now;
+  const daysElement = document.getElementById(`${prefix}-days`);
+  const hoursElement = document.getElementById(`${prefix}-hours`);
+  const minsElement = document.getElementById(`${prefix}-mins`);
+  const secsElement = document.getElementById(`${prefix}-secs`);
+  if (!daysElement || !hoursElement || !minsElement || !secsElement) return;
+
   if (diff <= 0) {
-    document.getElementById('cd-days').textContent = '00';
-    document.getElementById('cd-hours').textContent = '00';
-    document.getElementById('cd-mins').textContent = '00';
-    document.getElementById('cd-secs').textContent = '00';
+    daysElement.textContent = '00';
+    hoursElement.textContent = '00';
+    minsElement.textContent = '00';
+    secsElement.textContent = '00';
     return;
   }
   const days = Math.floor(diff / (1000 * 60 * 60 * 24));
   const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
   const mins = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
   const secs = Math.floor((diff % (1000 * 60)) / 1000);
-  document.getElementById('cd-days').textContent = String(days).padStart(2, '0');
-  document.getElementById('cd-hours').textContent = String(hours).padStart(2, '0');
-  document.getElementById('cd-mins').textContent = String(mins).padStart(2, '0');
-  document.getElementById('cd-secs').textContent = String(secs).padStart(2, '0');
+  daysElement.textContent = String(days).padStart(2, '0');
+  hoursElement.textContent = String(hours).padStart(2, '0');
+  minsElement.textContent = String(mins).padStart(2, '0');
+  secsElement.textContent = String(secs).padStart(2, '0');
 }
-updateCountdown();
-setInterval(updateCountdown, 1000);
+
+function updateAllCountdowns() {
+  updateCountdown(partyDate, 'party-cd');
+  updateCountdown(ceremonyDate, 'ceremony-cd');
+}
+
+updateAllCountdowns();
+setInterval(updateAllCountdowns, 1000);
 
 </script>
 </body>
