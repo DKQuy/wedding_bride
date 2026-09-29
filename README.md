@@ -1,1 +1,1 @@
-# wedding_bride
+# wedding
