@@ -143,11 +143,30 @@
   .announce-text {
     text-align: center;
     font-size: 15px;
-    letter-spacing: 1px;
+    letter-spacing: 0.5px;
     color: var(--text-mid);
     margin-bottom: 16px;
-    line-height: 1.8;
-    text-transform: uppercase;
+    line-height: 1.6;
+    text-transform: none;
+    text-wrap: balance;
+  }
+
+  .invite-greeting,
+  .invite-detail {
+    display: block;
+  }
+
+  .invite-greeting {
+    color: var(--crimson);
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 3px;
+  }
+
+  .invite-detail {
+    max-width: 360px;
+    margin: 0 auto;
+    font-size: 15px;
   }
 
   .groom-name {
@@ -883,6 +902,13 @@
     text-align: center;
   }
 
+  .footer-greeting {
+    color: white;
+    font-size: 16px;
+    letter-spacing: 0.5px;
+    margin-bottom: 8px;
+  }
+
   .footer-date {
     color: var(--gold);
     font-family: 'Playfair Display', serif;
@@ -955,14 +981,14 @@
   <div class="info-section">
     <div class="parents-row">
       <div class="parent-block">
-        <div class="ong-ba">Ông Bà</div>
+        <div class="ong-ba">Nhà Gái</div>
         <strong>NGUYỄN XUÂN SƠN</strong>
         <strong>NGUYỄN THỊ THIẾT</strong>
         <div style="font-size:11px;color:#888;margin-top:2px;">Số nhà 161, Đường 1A, Thôn Gián Khẩu, Xã Gia Trấn, Tỉnh Ninh Bình</div>
       </div>
       <div class="parent-divider"></div>
       <div class="parent-block">
-        <div class="ong-ba">Ông Bà</div>
+        <div class="ong-ba">Nhà Trai</div>
         <strong>ĐINH KHẮC HẠ</strong>
         <strong>VŨ THỊ LANH</strong>
         <div style="font-size:11px;color:#888;margin-top:2px;">Tổ dân phố Phả Lễ 1, phường Nam Triệu Giang, Thành Phố Hải Phòng</div>
@@ -970,7 +996,8 @@
     </div>
 
     <div class="announce-text">
-      Trân Trọng Báo Tin<br>Lễ Thành Hôn Của Con Chúng Tôi
+      <span class="invite-greeting">Trân trọng kính mời</span>
+      <span class="invite-detail">Tới dự tiệc mừng Lễ thành hôn cùng gia đình chúng tôi</span>
     </div>
 
     <div class="bride-name">NGUYỄN THỊ LAN ANH</div>
@@ -1056,6 +1083,7 @@
 
   <!-- FOOTER -->
   <div class="footer">
+    <div class="footer-greeting">Rất hân hạnh được đón tiếp</div>
     <div class="footer-date">Tháng 11/2026</div>
   </div>
 
