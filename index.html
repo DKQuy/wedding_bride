@@ -487,8 +487,9 @@
 
   /* ===== COUPLE GALLERY ===== */
   .gallery-section {
-    padding: 20px 16px 24px;
+    padding: 20px 0 24px;
     background: var(--cream);
+    overflow: hidden;
   }
 
   .gallery-empty {
@@ -500,26 +501,84 @@
   }
 
   .gallery-grid {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 10px;
+    display: flex;
+    gap: 14px;
+    overflow-x: auto;
+    padding: 4px 18px 16px;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    scrollbar-width: none;
+    overscroll-behavior-x: contain;
   }
 
+  .gallery-grid::-webkit-scrollbar { display: none; }
+
   .gallery-item {
+    flex: 0 0 min(84%, 390px);
     min-width: 0;
     margin: 0;
     overflow: hidden;
-    border: 1px solid rgba(139,0,0,0.18);
+    padding: 5px;
+    border: 1px solid var(--gold);
     background: white;
+    box-shadow: 0 8px 24px rgba(44,16,16,0.14);
+    opacity: 0.72;
+    scroll-snap-align: center;
+    transform: scale(0.96);
+    transition: opacity 0.45s ease, transform 0.45s ease;
   }
+
+  .gallery-item.is-active { opacity: 1; transform: scale(1); }
 
   .gallery-item img,
   .gallery-item video {
     display: block;
     width: 100%;
-    aspect-ratio: 4 / 3;
+    aspect-ratio: 4 / 5;
     object-fit: cover;
     background: var(--cream-dark);
+    transition: transform 0.65s ease;
+  }
+
+  .gallery-item:hover img { transform: scale(1.025); }
+
+  .gallery-controls {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+  }
+
+  .gallery-nav {
+    display: grid;
+    place-items: center;
+    width: 38px;
+    height: 38px;
+    border: 1px solid var(--gold);
+    border-radius: 50%;
+    background: white;
+    color: var(--crimson);
+    font-size: 24px;
+    line-height: 1;
+    cursor: pointer;
+    transition: background 0.2s ease, color 0.2s ease, opacity 0.2s ease;
+  }
+
+  .gallery-nav:hover:not(:disabled) { background: var(--crimson); color: white; }
+  .gallery-nav:focus-visible { outline: 2px solid var(--crimson); outline-offset: 3px; }
+  .gallery-nav:disabled { cursor: default; opacity: 0.4; }
+
+  .gallery-status {
+    min-width: 62px;
+    color: var(--text-mid);
+    font-family: 'Playfair Display', serif;
+    font-size: 14px;
+    text-align: center;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .gallery-grid { scroll-behavior: auto; }
+    .gallery-item, .gallery-item img, .gallery-nav { transition: none; }
   }
 
   .gallery-zoom {
@@ -1021,6 +1080,30 @@
     <div class="groom-name">ĐINH KHẮC QUÝ</div>
   </div>
 
+  <!-- KHOANH KHAC CUA DOI -->
+  <div class="section-header">Khoảnh Khắc Yêu Thương</div>
+  <div class="gallery-section">
+    <div class="gallery-carousel">
+      <div class="gallery-grid" id="gallery-track" role="region" aria-label="Ảnh kỷ niệm" tabindex="0">
+        <figure class="gallery-item is-active">
+          <button class="gallery-zoom" type="button" aria-label="Phóng to ảnh gia đình trong ngày lễ ăn hỏi">
+            <img src="media/gallery/images/anh_gia_dinh_le_an_hoi.jpg" alt="Gia đình trong ngày lễ ăn hỏi của cô dâu và chú rể" loading="lazy">
+          </button>
+        </figure>
+        <figure class="gallery-item">
+          <button class="gallery-zoom" type="button" aria-label="Phóng to ảnh kỷ niệm của cô dâu và chú rể">
+            <img src="media/gallery/images/img1.jpg" alt="Khoảnh khắc kỷ niệm của cô dâu và chú rể" loading="lazy">
+          </button>
+        </figure>
+      </div>
+      <div class="gallery-controls" aria-label="Điều hướng ảnh">
+        <button class="gallery-nav" id="gallery-prev" type="button" aria-label="Ảnh trước" disabled>&#8249;</button>
+        <span class="gallery-status" id="gallery-status" aria-live="polite" aria-atomic="true">01 / 02</span>
+        <button class="gallery-nav" id="gallery-next" type="button" aria-label="Ảnh tiếp theo">&#8250;</button>
+      </div>
+    </div>
+  </div>
+
   <!-- THONG TIN TIEC CUOI -->
   <div class="section-header">Thông Tin Tiệc Mừng<br>Lễ Thành Hôn</div>
 
@@ -1162,6 +1245,11 @@
 
 </div>
 
+<dialog class="photo-lightbox" id="photo-lightbox" aria-label="Ảnh phóng to">
+  <button class="photo-lightbox-close" type="button" aria-label="Đóng ảnh">&times;</button>
+  <img id="photo-lightbox-image" alt="">
+</dialog>
+
 <!-- QR MODAL -->
 <div class="modal-overlay" id="gift-modal" hidden>
   <div class="modal-box">
@@ -1241,6 +1329,85 @@ function updateAllCountdowns() {
 
 updateAllCountdowns();
 setInterval(updateAllCountdowns, 1000);
+
+const galleryTrack = document.getElementById('gallery-track');
+const photoLightbox = document.getElementById('photo-lightbox');
+const photoLightboxImage = document.getElementById('photo-lightbox-image');
+if (galleryTrack && photoLightbox && photoLightboxImage) {
+  galleryTrack.addEventListener('click', (event) => {
+    const zoomButton = event.target.closest('.gallery-zoom');
+    if (!zoomButton) return;
+
+    const image = zoomButton.querySelector('img');
+    photoLightboxImage.src = image.currentSrc || image.src;
+    photoLightboxImage.alt = image.alt;
+    photoLightbox.showModal();
+  });
+
+  photoLightbox.querySelector('.photo-lightbox-close').addEventListener('click', () => photoLightbox.close());
+  photoLightbox.addEventListener('cancel', (event) => {
+    event.preventDefault();
+    photoLightbox.close();
+  });
+  photoLightbox.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape') {
+      event.preventDefault();
+      photoLightbox.close();
+    }
+  });
+  photoLightbox.addEventListener('click', (event) => {
+    if (event.target === photoLightbox) photoLightbox.close();
+  });
+}
+
+if (galleryTrack) {
+  const gallerySlides = Array.from(galleryTrack.querySelectorAll('.gallery-item'));
+  const previousButton = document.getElementById('gallery-prev');
+  const nextButton = document.getElementById('gallery-next');
+  const galleryStatus = document.getElementById('gallery-status');
+  let activeGalleryIndex = 0;
+
+  function updateGallery() {
+    const trackCenter = galleryTrack.getBoundingClientRect().left + galleryTrack.clientWidth / 2;
+    let closestDistance = Infinity;
+    let closestIndex = 0;
+
+    gallerySlides.forEach((slide, index) => {
+      const slideRect = slide.getBoundingClientRect();
+      const distance = Math.abs(slideRect.left + slideRect.width / 2 - trackCenter);
+      if (distance < closestDistance) {
+        closestDistance = distance;
+        closestIndex = index;
+      }
+    });
+
+    activeGalleryIndex = closestIndex;
+    gallerySlides.forEach((slide, index) => slide.classList.toggle('is-active', index === activeGalleryIndex));
+    galleryStatus.textContent = `${String(activeGalleryIndex + 1).padStart(2, '0')} / ${String(gallerySlides.length).padStart(2, '0')}`;
+    previousButton.disabled = activeGalleryIndex === 0;
+    nextButton.disabled = activeGalleryIndex === gallerySlides.length - 1;
+  }
+
+  function showGallerySlide(index) {
+    const slide = gallerySlides[index];
+    if (!slide) return;
+
+    const trackRect = galleryTrack.getBoundingClientRect();
+    const slideRect = slide.getBoundingClientRect();
+    const left = galleryTrack.scrollLeft + slideRect.left - trackRect.left - (galleryTrack.clientWidth - slide.clientWidth) / 2;
+    galleryTrack.scrollTo({ left, behavior: 'smooth' });
+  }
+
+  previousButton.addEventListener('click', () => showGallerySlide(activeGalleryIndex - 1));
+  nextButton.addEventListener('click', () => showGallerySlide(activeGalleryIndex + 1));
+  galleryTrack.addEventListener('scroll', updateGallery, { passive: true });
+  galleryTrack.addEventListener('keydown', (event) => {
+    if (event.key === 'ArrowLeft') showGallerySlide(activeGalleryIndex - 1);
+    if (event.key === 'ArrowRight') showGallerySlide(activeGalleryIndex + 1);
+  });
+  window.addEventListener('resize', updateGallery);
+  updateGallery();
+}
 
 </script>
 </body>
